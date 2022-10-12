@@ -25,7 +25,7 @@ class Album {
           ),
         ),
         availableMarkets: Markets.fromJson(
-          json['available_markets'] as Map<String, dynamic>,
+          json['available_markets'] as List<dynamic>,
         ),
         externalUrls: ExternalUrls.fromJson(
           json['external_urls'] as Map<String, dynamic>,
@@ -58,4 +58,20 @@ class Album {
   final int totalTracks;
   final String type;
   final String uri;
+
+  Map<String, dynamic> toJson() => {
+        'album_type': albumType,
+        'artists': artists.map((x) => x.toJson()).toList(),
+        'available_markets': availableMarkets.toJson(),
+        'external_urls': externalUrls.toJson(),
+        'href': href,
+        'id': id,
+        'images': images.map((x) => x.toJson()).toList(),
+        'name': name,
+        'release_date': releaseDate,
+        'release_date_precision': releaseDatePrecision,
+        'total_tracks': totalTracks,
+        'type': type,
+        'uri': uri,
+      };
 }

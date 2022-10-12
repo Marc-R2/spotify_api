@@ -24,4 +24,12 @@ class Artist {
   final String id;
   final String type;
   final String uri;
+
+  Map<String, dynamic> toJson() => {
+        'external_urls': externalUrls.toJson(),
+        'href': href,
+        'id': id,
+        'type': type,
+        'uri': uri,
+      };
 }

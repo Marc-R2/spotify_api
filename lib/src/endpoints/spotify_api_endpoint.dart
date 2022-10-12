@@ -52,4 +52,10 @@ class Success<T> {
   final bool success;
 
   final T? data;
+
+  @override
+  String toString() {
+    if (success) return 'Success: $data';
+    return 'Failure: $data';
+  }
 }

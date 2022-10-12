@@ -18,18 +18,44 @@ void main() {
 
     test('Second Test', () async {
       await awesome.openAuthUri(SpotifyApiScopes.all);
-      await Future<void>.delayed(const Duration(seconds: 5));
+      await Future<void>.delayed(const Duration(seconds: 1));
       expect(awesome.isAwesome, isTrue);
       expect(awesome.code, isNotNull);
     });
 
-    test('Third Test', () async {
-      expect(awesome.code, isNotNull);
-      final auth = await awesome.getAccessToken();
-      expect(awesome.isAwesome, isTrue);
+    group('Endpoint Test', ()  {
+      late SpotifyApi api;
+      setUpAll(() async {
+        final auth = await awesome.getAccessToken();
+        api = SpotifyApi(auth: auth!);
+      });
 
-      final api = SpotifyApi(auth: auth!);
-      await api.renewAuth();
+      test('renew', () async {;
+        await api.renewAuth();
+      });
+
+      test('getUsersQueue', () async {
+        final me = await api.player.getUsersQueue();
+        expect(me.success, isTrue);
+        print(me);
+      });
+
+      test('getRecentlyPlayedTracks', () async {
+        final me = await api.player.getRecentlyPlayedTracks(limit: 10);
+        expect(me.success, isTrue);
+        print(me);
+        final history = me.data!;
+        expect(history.isNotEmpty, isTrue);
+        expect(history.length, 10);
+      });
+
+      test('getCurrentlyPlaying', () async {
+        final me = await api.player.getPlaybackState();
+        expect(me.success, isTrue);
+        print(me);
+        final playback = me.data!;
+        expect(playback.isPlaying, isTrue);
+      });
     });
   });
 }

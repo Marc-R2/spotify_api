@@ -29,7 +29,7 @@ class Track {
           ),
         ),
         availableMarkets: Markets.fromJson(
-          json['available_markets'] as Map<String, dynamic>,
+          json['available_markets'] as List<dynamic>,
         ),
         discNumber: json['disc_number'] as int,
         durationMs: json['duration_ms'] as int,
@@ -68,4 +68,24 @@ class Track {
   final int trackNumber;
   final String type;
   final String uri;
+
+  Map<String, dynamic> toJson() => {
+        'album': album.toJson(),
+        'artists': artists.map((x) => x.toJson()).toList(),
+        'available_markets': availableMarkets.toJson(),
+        'disc_number': discNumber,
+        'duration_ms': durationMs,
+        'explicit': explicit,
+        'external_ids': externalIds.toJson(),
+        'external_urls': externalUrls.toJson(),
+        'href': href,
+        'id': id,
+        'is_local': isLocal,
+        'name': name,
+        'popularity': popularity,
+        'preview_url': previewUrl,
+        'track_number': trackNumber,
+        'type': type,
+        'uri': uri,
+      };
 }

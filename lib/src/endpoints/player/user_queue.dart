@@ -1,9 +1,7 @@
-
 import 'package:spotify_api/spotify_api.dart';
-import 'package:spotify_api/src/endpoints/spotify_api_endpoint.dart';
 
 class UserQueue {
-  UserQueue({
+  const UserQueue({
     required this.currentlyPlaying,
     required this.queue,
   });
@@ -11,4 +9,10 @@ class UserQueue {
   final Track? currentlyPlaying;
 
   final List<Track> queue;
+
+  @override
+  String toString() {
+    return 'UserQueue(current: ${currentlyPlaying?.name} + '
+        'queued: ${queue.length} items)';
+  }
 }
