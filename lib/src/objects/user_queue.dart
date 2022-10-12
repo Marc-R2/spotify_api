@@ -1,4 +1,4 @@
-import 'package:spotify_api/spotify_api.dart';
+part of '../../spotify_api.dart';
 
 class UserQueue {
   const UserQueue({

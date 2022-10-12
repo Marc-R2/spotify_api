@@ -16,3 +16,4 @@ part 'src/objects/markets.dart';
 part 'src/objects/external_ids.dart';
 part 'src/objects/external_urls.dart';
 part 'src/objects/image.dart';
+part 'src/objects/user_queue.dart';

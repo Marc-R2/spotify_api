@@ -17,8 +17,9 @@ void main() {
     });
 
     test('Second Test', () async {
-      await awesome.openAuthUri(SpotifyApiScopes.all);
-      await Future<void>.delayed(const Duration(seconds: 1));
+      // await awesome.openAuthUri(SpotifyApiScopes.all);
+      await awesome.getAuthUri(SpotifyApiScopes.all);
+      await Future<void>.delayed(const Duration(seconds: 10));
       expect(awesome.isAwesome, isTrue);
       expect(awesome.code, isNotNull);
     });

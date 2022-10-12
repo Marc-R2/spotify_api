@@ -1,4 +1,4 @@
-part of '../spotify_api_endpoint.dart';
+part of 'spotify_api_endpoint.dart';
 
 class SpotifyApiPlayer extends SpotifyApiEndpoint {
   SpotifyApiPlayer({required super.api});
