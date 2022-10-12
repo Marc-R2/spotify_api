@@ -3,4 +3,4 @@
 /// More dartdocs go here.
 library spotify_api;
 
-export 'src/spotify_api_base.dart';
+export 'src/spotify_api_auth.dart';

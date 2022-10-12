@@ -23,6 +23,52 @@ class SpotifyApiScopes {
     this.userReadRecentlyPlayed = false,
   });
 
+  static SpotifyApiScopes fromString(String scopes) {
+    return SpotifyApiScopes(
+      ugcImageUpload: scopes.contains('ugc-image-upload'),
+      userReadPlaybackState: scopes.contains('user-read-playback-state'),
+      userModifyPlaybackState: scopes.contains('user-modify-playback-state'),
+      userReadCurrentlyPlaying: scopes.contains('user-read-currently-playing'),
+      appRemoteControl: scopes.contains('app-remote-control'),
+      streaming: scopes.contains('streaming'),
+      playlistModifyPublic: scopes.contains('playlist-modify-public'),
+      playlistModifyPrivate: scopes.contains('playlist-modify-private'),
+      playlistReadCollaborative: scopes.contains('playlist-read-collaborative'),
+      playlistReadPrivate: scopes.contains('playlist-read-private'),
+      userFollowModify: scopes.contains('user-follow-modify'),
+      userFollowRead: scopes.contains('user-follow-read'),
+      userLibraryModify: scopes.contains('user-library-modify'),
+      userLibraryRead: scopes.contains('user-library-read'),
+      userReadEmail: scopes.contains('user-read-email'),
+      userReadPrivate: scopes.contains('user-read-private'),
+      userTopRead: scopes.contains('user-top-read'),
+      userReadPlaybackPosition: scopes.contains('user-read-playback-position'),
+      userReadRecentlyPlayed: scopes.contains('user-read-recently-played'),
+    );
+  }
+
+  static const SpotifyApiScopes all = SpotifyApiScopes(
+    ugcImageUpload: true,
+    userReadPlaybackState: true,
+    userModifyPlaybackState: true,
+    userReadCurrentlyPlaying: true,
+    appRemoteControl: true,
+    streaming: true,
+    playlistModifyPublic: true,
+    playlistModifyPrivate: true,
+    playlistReadCollaborative: true,
+    playlistReadPrivate: true,
+    userFollowModify: true,
+    userFollowRead: true,
+    userLibraryModify: true,
+    userLibraryRead: true,
+    userReadEmail: true,
+    userReadPrivate: true,
+    userTopRead: true,
+    userReadPlaybackPosition: true,
+    userReadRecentlyPlayed: true,
+  );
+
   // Images
   /// ugc-image-upload
   ///
@@ -208,4 +254,31 @@ class SpotifyApiScopes {
   ///
   /// Visible to users: Access your subscription details.
   final bool userReadPrivate;
+
+  @override
+  String toString() {
+    final scopes = <String>[];
+
+    if (ugcImageUpload) scopes.add('ugc-image-upload');
+    if (userReadPlaybackState) scopes.add('user-read-playback-state');
+    if (userModifyPlaybackState) scopes.add('user-modify-playback-state');
+    if (userReadCurrentlyPlaying) scopes.add('user-read-currently-playing');
+    if (appRemoteControl) scopes.add('app-remote-control');
+    if (streaming) scopes.add('streaming');
+    if (playlistModifyPublic) scopes.add('playlist-modify-public');
+    if (playlistModifyPrivate) scopes.add('playlist-modify-private');
+    if (playlistReadCollaborative) scopes.add('playlist-read-collaborative');
+    if (playlistReadPrivate) scopes.add('playlist-read-private');
+    if (userFollowModify) scopes.add('user-follow-modify');
+    if (userFollowRead) scopes.add('user-follow-read');
+    if (userLibraryModify) scopes.add('user-library-modify');
+    if (userLibraryRead) scopes.add('user-library-read');
+    if (userReadEmail) scopes.add('user-read-email');
+    if (userReadPrivate) scopes.add('user-read-private');
+    if (userTopRead) scopes.add('user-top-read');
+    if (userReadPlaybackPosition) scopes.add('user-read-playback-position');
+    if (userReadRecentlyPlayed) scopes.add('user-read-recently-played');
+
+    return scopes.join(' ');
+  }
 }
