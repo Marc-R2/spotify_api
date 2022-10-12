@@ -49,12 +49,40 @@ void main() {
         expect(history.length, 10);
       });
 
-      test('getCurrentlyPlaying', () async {
+      test('getPlaybackState', () async {
         final me = await api.player.getPlaybackState();
         expect(me.success, isTrue);
         print(me);
         final playback = me.data!;
         expect(playback.isPlaying, isTrue);
+      });
+
+      test('getAvailableDevices', () async {
+        final me = await api.player.getAvailableDevices();
+        expect(me.success, isTrue);
+        print(me);
+        final devices = me.data!;
+        expect(devices.isNotEmpty, isTrue);
+      });
+
+      test('getCurrentlyPlaying', () async {
+        final me = await api.player.getCurrentlyPlaying();
+        expect(me.success, isTrue);
+        print(me);
+        final playback = me.data!;
+        expect(playback.isPlaying, isTrue);
+      });
+
+      test('skipToNext', () async {
+        final me = await api.player.skipToNextTrack();
+        expect(me.success, isTrue);
+        print(me);
+      });
+
+      test('skipToPrevious', () async {
+        final me = await api.player.skipToPreviousTrack();
+        expect(me.success, isTrue);
+        print(me);
       });
     });
   });

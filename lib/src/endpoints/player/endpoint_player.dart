@@ -96,4 +96,245 @@ class SpotifyApiPlayer extends SpotifyApiEndpoint {
     }
     return fail;
   }
+
+  /// Method: GET
+  /// Endpoint: /v1/me/player/devices
+  /// Usage: Get Available Devices
+  Future<Success<List<Device>>> getAvailableDevices() async {
+    const fail = Success<List<Device>>(success: false);
+    if (_api.hasScopes(const SpotifyApiScopes(userReadPlaybackState: true))) {
+      final json = await _api.getRequest(endpoint: 'me/player/devices');
+      if (json == null) return fail;
+      try {
+        final devices = json['devices'] != null
+            ? List<Device>.from(
+                (json['devices'] as List)
+                    .map((e) => Device.fromJson(e as Map<String, dynamic>)),
+              )
+            : <Device>[];
+
+        return Success(data: devices);
+      } catch (e, trace) {
+        print('$e => $trace');
+      }
+    }
+    return fail;
+  }
+
+  /// Method: GET
+  /// Endpoint: /v1/me/player/currently-playing
+  /// Usage: Get Currently Playing Track
+  Future<Success<CurrentlyPlaying>> getCurrentlyPlaying({
+    String? market,
+    String? additionalTypes,
+  }) async {
+    const fail = Success<CurrentlyPlaying>(success: false);
+    if (_api.hasScopes(const SpotifyApiScopes(userReadPlaybackState: true))) {
+      final json = await _api.getRequest(
+        endpoint: 'me/player/currently-playing',
+        queryParameters: {
+          if (market != null) 'market': market,
+          if (additionalTypes != null) 'additional_types': additionalTypes,
+        },
+      );
+      if (json == null) return fail;
+      try {
+        return Success(data: CurrentlyPlaying.fromJson(json));
+      } catch (e, trace) {
+        print('$e => $trace');
+      }
+    }
+    return fail;
+  }
+
+  /// Method: POST
+  /// Endpoint: /v1/me/player/next
+  /// Usage: Skip To Next Track
+  Future<Success<bool>> skipToNextTrack({String? device}) async {
+    const fail = Success<bool>(success: false);
+    if (_api.hasScopes(const SpotifyApiScopes(userModifyPlaybackState: true))) {
+      final json = await _api.postRequest(
+        endpoint: 'me/player/next',
+        queryParameters: {
+          if (device != null) 'device': device,
+        },
+      );
+      if (json == null) return fail;
+      return const Success(data: true);
+    }
+    return fail;
+  }
+
+  /// Method: POST
+  /// Endpoint: /v1/me/player/previous
+  /// Usage: Skip To Previous Track
+  Future<Success<bool>> skipToPreviousTrack({String? device}) async {
+    const fail = Success<bool>(success: false);
+    if (_api.hasScopes(const SpotifyApiScopes(userModifyPlaybackState: true))) {
+      final json = await _api.postRequest(
+        endpoint: 'me/player/previous',
+        queryParameters: {
+          if (device != null) 'device': device,
+        },
+      );
+      if (json == null) return fail;
+      return const Success(data: true);
+    }
+    return fail;
+  }
+
+  /// Method: PUT
+  /// Endpoint: /v1/me/player/pause
+  /// Usage: Pause Playback
+  Future<Success<bool>> pausePlayback({String? device}) async {
+    const fail = Success<bool>(success: false);
+    if (_api.hasScopes(const SpotifyApiScopes(userModifyPlaybackState: true))) {
+      final json = await _api.putRequest(
+        endpoint: 'me/player/pause',
+        queryParameters: {
+          if (device != null) 'device': device,
+        },
+      );
+      if (json == null) return fail;
+      return const Success(data: true);
+    }
+    return fail;
+  }
+
+  /// Method: PUT
+  /// Endpoint: /v1/me/player/play
+  /// Usage: Start/Resume Playback
+  Future<Success<bool>> startResumePlayback({
+    String? device,
+    String? context,
+    List<String>? uris,
+    String? offset,
+    int? position,
+  }) async {
+    const fail = Success<bool>(success: false);
+    if (_api.hasScopes(const SpotifyApiScopes(userModifyPlaybackState: true))) {
+      final json = await _api.putRequest(
+        endpoint: 'me/player/play',
+        queryParameters: {
+          if (device != null) 'device': device,
+        },
+        data: {
+          if (context != null) 'context_uri': context,
+          if (offset != null) 'offset': {'position': offset},
+          if (position != null) 'position_ms': position.toString(),
+        },
+      );
+      if (json == null) return fail;
+      return const Success(data: true);
+    }
+    return fail;
+  }
+
+  /// Method: PUT
+  /// Endpoint: /v1/me/player/repeat
+  /// Usage: Set Repeat Mode
+  Future<Success<bool>> setRepeatMode({
+    String? device,
+    required String state,
+  }) async {
+    const fail = Success<bool>(success: false);
+    if (_api.hasScopes(const SpotifyApiScopes(userModifyPlaybackState: true))) {
+      final json = await _api.putRequest(
+        endpoint: 'me/player/repeat',
+        queryParameters: {
+          if (device != null) 'device': device,
+          'state': state,
+        },
+      );
+      if (json == null) return fail;
+      return const Success(data: true);
+    }
+    return fail;
+  }
+
+  /// Method: PUT
+  /// Endpoint: /v1/me/player/seek
+  /// Usage: Seek To Position
+  Future<Success<bool>> seekToPosition({
+    String? device,
+    required int position,
+  }) async {
+    const fail = Success<bool>(success: false);
+    if (_api.hasScopes(const SpotifyApiScopes(userModifyPlaybackState: true))) {
+      final json = await _api.putRequest(
+        endpoint: 'me/player/seek',
+        queryParameters: {
+          if (device != null) 'device': device,
+          'position_ms': position.toString(),
+        },
+      );
+      if (json == null) return fail;
+      return const Success(data: true);
+    }
+    return fail;
+  }
+
+  /// Method: PUT
+  /// Endpoint: /v1/me/player/shuffle
+  /// Usage: Toggle Playback Shuffle
+  Future<Success<bool>> togglePlaybackShuffle({
+    String? device,
+    required bool state,
+  }) async {
+    const fail = Success<bool>(success: false);
+    if (_api.hasScopes(const SpotifyApiScopes(userModifyPlaybackState: true))) {
+      final json = await _api.putRequest(
+        endpoint: 'me/player/shuffle',
+        queryParameters: {
+          if (device != null) 'device': device,
+          'state': state.toString(),
+        },
+      );
+      if (json == null) return fail;
+      return const Success(data: true);
+    }
+    return fail;
+  }
+
+  /// Method: PUT
+  /// Endpoint: /v1/me/player
+  /// Usage: Transfer Playback
+  Future<Success<bool>> transferPlayback({
+    required List<String> devices,
+  }) async {
+    const fail = Success<bool>(success: false);
+    if (_api.hasScopes(const SpotifyApiScopes(userModifyPlaybackState: true))) {
+      final json = await _api.putRequest(
+        endpoint: 'me/player',
+        data: {
+          'device_ids': devices,
+        },
+      );
+      if (json == null) return fail;
+      return const Success(data: true);
+    }
+    return fail;
+  }
+
+  /// Method: PUT
+  /// Endpoint: /v1/me/player/volume
+  /// Usage: Set Volume
+  Future<Success<bool>> setVolume({
+    String? device,
+    required int volume,
+  }) async {
+    const fail = Success<bool>(success: false);
+    if (_api.hasScopes(const SpotifyApiScopes(userModifyPlaybackState: true))) {
+      final json = await _api.putRequest(
+        endpoint: 'me/player/volume',
+        queryParameters: {
+          if (device != null) 'device': device,
+          'volume_percent': volume.toString(),
+        },
+      );
+      if (json == null) return fail;
+      return const Success(data: true);
+    }
+    return fail;
+  }
 }

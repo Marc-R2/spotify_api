@@ -33,8 +33,12 @@ class SpotifyApiServer {
       uri,
       headers: {'Authorization': 'Bearer ${auth.accessToken}'},
     );
+    print('${response.statusCode} => ${response.body}');
     if (response.statusCode == 200) {
       return jsonDecode(response.body) as Map<String, dynamic>?;
+    } else if (response.statusCode == 204) {
+      print('204 => No Content');
+      return {};
     }
     return null;
   }
@@ -60,16 +64,19 @@ class SpotifyApiServer {
     required String endpoint,
     String version = 'v1',
     Map<String, String> queryParameters = const {},
+    Map<String, dynamic> data = const {},
   }) async {
     final auth = await _getAuth();
     final uri = Uri.https(_apiUrl, '/$version/$endpoint', queryParameters);
     final response = await http.put(
       uri,
-      body: queryParameters,
+      body: data,
       headers: {'Authorization': 'Bearer ${auth.accessToken}'},
     );
     if (response.statusCode == 200) {
       return jsonDecode(response.body) as Map<String, dynamic>?;
+    } else if (response.statusCode == 204) {
+      return {};
     }
     return null;
   }
@@ -87,7 +94,10 @@ class SpotifyApiServer {
     );
     if (response.statusCode == 200) {
       return jsonDecode(response.body) as Map<String, dynamic>?;
+    } else if (response.statusCode == 204) {
+      return {};
     }
+
     return null;
   }
 }
