@@ -1,12 +1,4 @@
-import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
-
-import 'package:http/http.dart' as http;
-import 'package:open_url/open_url.dart';
-import 'package:shelf/shelf.dart';
-import 'package:shelf/shelf_io.dart' as shelf_io;
-import 'package:spotify_api/src/spotify_api_scopes.dart';
+part of '../../spotify_api.dart';
 
 ///
 class SpotifyApiAuth {
@@ -16,7 +8,9 @@ class SpotifyApiAuth {
 
   Timer? _serverFuture;
 
-  String? code;
+  Completer<String> _code = Completer<String>();
+
+  Future<String> get code => _code.future;
 
   static const clientId = 'YOUR_CLIENT_ID';
   static const redirectUri = 'http://localhost:8080/callback';
@@ -26,7 +20,7 @@ class SpotifyApiAuth {
     final handler =
         const Pipeline().addMiddleware(logRequests()).addHandler((request) {
       if (request.requestedUri.path == '/callback') {
-        code = request.url.queryParameters['code'];
+        _code.complete(request.url.queryParameters['code']);
 
         Timer(const Duration(milliseconds: 128), () {
           _server?.close();
@@ -61,29 +55,35 @@ class SpotifyApiAuth {
     });
 
     if (_serverFuture != null) _serverFuture!.cancel();
-    _serverFuture = Timer(const Duration(seconds: 30), _stopServer);
+    _serverFuture = Timer(const Duration(seconds: 60), _stopServer);
 
     return uri;
   }
 
   Future<ProcessResult> openAuthUri(SpotifyApiScopes scopes) async {
     final uri = await getAuthUri(scopes);
+    print(uri.toString());
     return openUrl(uri.toString());
   }
 
-  Future<SpotifyAuth?> getAccessToken() async {
+  Future<SpotifyAuth?>? _getAuth;
+
+  Future<SpotifyAuth?> getAccessToken() => _getAuth ??= _getAccessToken();
+
+  Future<SpotifyAuth?> _getAccessToken() async {
     try {
       final uri = Uri.https('accounts.spotify.com', '/api/token');
 
-      if (code == null) throw Exception('No code');
-      final response = await http.post(uri, body: {
-        'grant_type': 'authorization_code',
-        'code': code,
-        'redirect_uri': redirectUri,
-        'client_id': clientId,
-        'client_secret': clientSecret,
-      });
-      print(response.body);
+      final response = await http.post(
+        uri,
+        body: {
+          'grant_type': 'authorization_code',
+          'code': await code,
+          'redirect_uri': redirectUri,
+          'client_id': clientId,
+          'client_secret': clientSecret,
+        },
+      );
 
       final json = jsonDecode(response.body) as Map<String, dynamic>;
 
@@ -116,7 +116,7 @@ class SpotifyAuth {
 
   bool get isExpired => DateTime.now().isAfter(expire);
 
-  Future<SpotifyAuth> renew() async {
+  static Future<SpotifyAuth> renew(String refreshToken) async {
     final uri = Uri.https('accounts.spotify.com', '/api/token');
 
     final response = await http.post(uri, body: {
