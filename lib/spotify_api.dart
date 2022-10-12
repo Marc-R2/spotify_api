@@ -34,3 +34,5 @@ part 'src/objects/audiobook.dart';
 part 'src/objects/chapter.dart';
 part 'src/objects/category.dart';
 part 'src/objects/playlist.dart';
+part 'src/objects/playlist_track.dart';
+part 'src/objects/user.dart';

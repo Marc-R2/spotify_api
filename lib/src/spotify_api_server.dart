@@ -22,12 +22,14 @@ class SpotifyApiServer {
     required String endpoint,
     String version = 'v1',
     Map<String, String> queryParameters = const {},
+    Map<String, dynamic> data = const {},
   }) async {
     final auth = await _getAuth();
     final uri = Uri.https(_apiUrl, '/$version/$endpoint', queryParameters);
     final response = await http.post(
       uri,
       headers: {'Authorization': 'Bearer ${auth.accessToken}'},
+      body: jsonEncode(data),
     );
     print('${response.statusCode} => ${response.body}');
     if (response.statusCode == 200) {
@@ -60,7 +62,7 @@ class SpotifyApiServer {
     required String endpoint,
     String version = 'v1',
     Map<String, String> queryParameters = const {},
-    Map<String, dynamic> data = const {},
+    Object? data,
   }) async {
     final auth = await _getAuth();
     final uri = Uri.https(_apiUrl, '/$version/$endpoint', queryParameters);
