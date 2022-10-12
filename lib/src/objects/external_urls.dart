@@ -1,9 +1,15 @@
 part of '../../spotify_api.dart';
 
 class ExternalUrls {
-  ExternalUrls({
-    this.spotify,
-  });
+  const ExternalUrls({required this.spotify});
 
-  String? spotify;
+  factory ExternalUrls.fromJson(Map<String, dynamic> json) => ExternalUrls(
+        spotify: json['spotify'] as String,
+      );
+
+  final String spotify;
+
+  Map<String, dynamic> toJson() => {
+        'spotify': spotify,
+      };
 }

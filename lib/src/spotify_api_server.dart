@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 import 'package:spotify_api/spotify_api.dart';
 import 'package:spotify_api/src/spotify_api_scopes.dart';
@@ -20,7 +22,7 @@ class SpotifyApiServer {
     return _auth;
   }
 
-  Future<String?> postRequest({
+  Future<Map<String, dynamic>?> postRequest({
     required String endpoint,
     String version = 'v1',
     Map<String, String> queryParameters = const {},
@@ -31,11 +33,13 @@ class SpotifyApiServer {
       uri,
       headers: {'Authorization': 'Bearer ${auth.accessToken}'},
     );
-    print(response.body);
-    return response.body;
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body) as Map<String, dynamic>?;
+    }
+    return null;
   }
 
-  Future<String?> getRequest({
+  Future<Map<String, dynamic>?> getRequest({
     required String endpoint,
     String version = 'v1',
     Map<String, String> queryParameters = const {},
@@ -46,11 +50,13 @@ class SpotifyApiServer {
       uri,
       headers: {'Authorization': 'Bearer ${auth.accessToken}'},
     );
-    print(response.body);
-    return response.body;
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body) as Map<String, dynamic>?;
+    }
+    return null;
   }
 
-  Future<String?> putRequest({
+  Future<Map<String, dynamic>?> putRequest({
     required String endpoint,
     String version = 'v1',
     Map<String, String> queryParameters = const {},
@@ -62,11 +68,13 @@ class SpotifyApiServer {
       body: queryParameters,
       headers: {'Authorization': 'Bearer ${auth.accessToken}'},
     );
-    print(response.body);
-    return response.body;
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body) as Map<String, dynamic>?;
+    }
+    return null;
   }
 
-  Future<String?> deleteRequest({
+  Future<Map<String, dynamic>?> deleteRequest({
     required String endpoint,
     String version = 'v1',
     Map<String, String> queryParameters = const {},
@@ -77,7 +85,9 @@ class SpotifyApiServer {
       uri,
       headers: {'Authorization': 'Bearer ${auth.accessToken}'},
     );
-    print(response.body);
-    return response.body;
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body) as Map<String, dynamic>?;
+    }
+    return null;
   }
 }

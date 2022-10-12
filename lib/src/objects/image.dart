@@ -1,11 +1,7 @@
 part of '../../spotify_api.dart';
 
 class Image {
-  String url;
-  int width;
-  int height;
-
-  Image({
+  const Image({
     required this.url,
     required this.width,
     required this.height,
@@ -16,6 +12,10 @@ class Image {
         width: json['width'] as int,
         height: json['height'] as int,
       );
+
+  final String url;
+  final int width;
+  final int height;
 
   Map<String, dynamic> toJson() => {
         'url': url,

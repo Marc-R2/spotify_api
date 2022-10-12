@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:spotify_api/spotify_api.dart';
+import 'package:spotify_api/src/endpoints/player/user_queue.dart';
 import 'package:spotify_api/src/spotify_api_scopes.dart';
 import 'package:spotify_api/src/spotify_api_server.dart';
 
@@ -40,13 +43,13 @@ abstract class SpotifyApiEndpoint {
   final SpotifyApiServer _api;
 }
 
-abstract class EndpointAnswer {
-  EndpointAnswer({
-    required this.auth,
-    required this.success,
-  }) : timestamp = DateTime.now();
+class Success<T> {
+  const Success({
+    this.success = true,
+    this.data,
+  });
 
-  final SpotifyApiAuth auth;
-  final timestamp;
   final bool success;
+
+  final T? data;
 }

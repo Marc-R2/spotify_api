@@ -4,10 +4,6 @@ class SpotifyApiPersonalization extends SpotifyApiEndpoint {
   SpotifyApiPersonalization({required super.api});
 
   Future<String?> getTopArtists() async {
-    return await _api.getRequest(endpoint: 'me/top/artists');
-  }
-
-  Future<String?> getTopTracks() async {
-    return await _api.getRequest(endpoint: 'me/top/tracks');
+    // return await _api.getRequest(endpoint: 'me/top/artists');
   }
 }

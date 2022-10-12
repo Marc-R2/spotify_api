@@ -17,6 +17,34 @@ class Album {
     required this.uri,
   });
 
+  factory Album.fromJson(Map<String, dynamic> json) => Album(
+        albumType: json['album_type'] as String,
+        artists: List<Artist>.from(
+          (json['artists'] as List).map(
+            (x) => Artist.fromJson(x as Map<String, dynamic>),
+          ),
+        ),
+        availableMarkets: Markets.fromJson(
+          json['available_markets'] as Map<String, dynamic>,
+        ),
+        externalUrls: ExternalUrls.fromJson(
+          json['external_urls'] as Map<String, dynamic>,
+        ),
+        href: json['href'] as String,
+        id: json['id'] as String,
+        images: List<Image>.from(
+          (json['images'] as List).map(
+            (x) => Image.fromJson(x as Map<String, dynamic>),
+          ),
+        ),
+        name: json['name'] as String,
+        releaseDate: json['release_date'] as String,
+        releaseDatePrecision: json['release_date_precision'] as String,
+        totalTracks: json['total_tracks'] as int,
+        type: json['type'] as String,
+        uri: json['uri'] as String,
+      );
+
   final String albumType;
   final List<Artist> artists;
   final Markets availableMarkets;
