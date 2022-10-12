@@ -3,7 +3,20 @@
 /// More dartdocs go here.
 library spotify_api;
 
-export 'src/spotify_api_auth.dart';
+import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:http/http.dart' as http;
+import 'package:open_url/open_url.dart';
+import 'package:shelf/shelf.dart';
+import 'package:shelf/shelf_io.dart' as shelf_io;
+import 'package:spotify_api/src/endpoints/spotify_api_endpoint.dart';
+import 'package:spotify_api/src/spotify_api_scopes.dart';
+
+part 'src/spotify_api_auth.dart';
+part 'src/spotify_api_client.dart';
+part 'src/spotify_api_server.dart';
 
 part 'src/objects/track.dart';
 part 'src/objects/history_track.dart';

@@ -1,5 +1,4 @@
 import 'package:spotify_api/spotify_api.dart';
-import 'package:spotify_api/src/spotify_api_client.dart';
 import 'package:spotify_api/src/spotify_api_scopes.dart';
 import 'package:test/test.dart';
 

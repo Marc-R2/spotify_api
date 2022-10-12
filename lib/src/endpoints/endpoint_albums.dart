@@ -4,7 +4,7 @@ class SpotifyApiAlbums extends SpotifyApiEndpoint {
   SpotifyApiAlbums({required super.api});
 
   /// Method: GET
-  /// Path: /v1/albums/{id}/tracks
+  /// Endpoint: /v1/albums/{id}/tracks
   /// Description: Get Album Tracks
   Future<Success<List<Track>>> getAlbumTracks({
     required String id,
@@ -40,7 +40,7 @@ class SpotifyApiAlbums extends SpotifyApiEndpoint {
   }
 
   /// Method: GET
-  /// Path: /v1/albums/{id}
+  /// Endpoint: /v1/albums/{id}
   /// Description: Get an Album
   Future<Success<Album>> getAlbum({required String id, String? market}) async {
     const fail = Success<Album>(success: false);
@@ -61,7 +61,7 @@ class SpotifyApiAlbums extends SpotifyApiEndpoint {
   }
 
   /// Method: GET
-  /// Path: /v1/albums
+  /// Endpoint: /v1/albums
   /// Description: Get Several Albums
   Future<Success<List<Album>>> getSeveralAlbums({
     required List<String> ids,

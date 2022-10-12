@@ -4,7 +4,7 @@ class SpotifyApiArtists extends SpotifyApiEndpoint {
   SpotifyApiArtists({required super.api});
 
   /// Method: GET
-  /// Path: /v1/artists/{id}/albums
+  /// Endpoint: /v1/artists/{id}/albums
   /// Description: Get an Artist's Albums
   Future<Success<List<Album>>> getArtistsAlbums({
     required String id,
@@ -42,7 +42,7 @@ class SpotifyApiArtists extends SpotifyApiEndpoint {
   }
 
   /// Method: GET
-  /// Path: /v1/artists/{id}/related-artists
+  /// Endpoint: /v1/artists/{id}/related-artists
   /// Description: Get an Artist's Related Artists
   Future<Success<List<Artist>>> getArtistsRelatedArtists({
     required String id,
@@ -70,7 +70,7 @@ class SpotifyApiArtists extends SpotifyApiEndpoint {
   }
 
   /// Method: GET
-  /// Path: /v1/artists/{id}/top-tracks
+  /// Endpoint: /v1/artists/{id}/top-tracks
   /// Description: Get an Artist's Top Tracks
   Future<Success<List<Track>>> getArtistsTopTracks({
     required String id,
@@ -100,7 +100,7 @@ class SpotifyApiArtists extends SpotifyApiEndpoint {
   }
 
   /// Method: GET
-  /// Path: /v1/artists/{id}
+  /// Endpoint: /v1/artists/{id}
   /// Description: Get an Artist
   Future<Success<Artist>> getArtists({
     required String id,
@@ -121,7 +121,7 @@ class SpotifyApiArtists extends SpotifyApiEndpoint {
   }
 
   /// Method: GET
-  /// Path: /v1/artists
+  /// Endpoint: /v1/artists
   /// Description: Get Several Artists
   Future<Success<List<Artist>>> getSeveralArtists({
     required List<String> ids,

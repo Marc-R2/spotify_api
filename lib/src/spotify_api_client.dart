@@ -1,6 +1,4 @@
-import 'package:spotify_api/spotify_api.dart';
-import 'package:spotify_api/src/endpoints/spotify_api_endpoint.dart';
-import 'package:spotify_api/src/spotify_api_server.dart';
+part of '../../spotify_api.dart';
 
 class SpotifyApi {
   SpotifyApi({required SpotifyAuth auth}) : _api = SpotifyApiServer(auth: auth);
@@ -10,6 +8,8 @@ class SpotifyApi {
   /// The access token is automatically refreshed when it expires,
   /// but there can be cases where you want to manually refresh it.
   Future<void> renewAuth() => _api.renewAuth();
+
+  SpotifyAuth get auth => _api._auth;
 
   final SpotifyApiServer _api;
 

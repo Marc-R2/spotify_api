@@ -4,7 +4,7 @@ class SpotifyApiAudioBooks extends SpotifyApiEndpoint {
   SpotifyApiAudioBooks({required super.api});
 
   /// Method: GET
-  /// Path: /v1/audiobooks/{id}/chapters
+  /// Endpoint: /v1/audiobooks/{id}/chapters
   /// Description: Get an Audiobook's Chapters
   Future<Success<List<Chapter>>> getAudiobooksChapters({
     required String id,
@@ -40,7 +40,7 @@ class SpotifyApiAudioBooks extends SpotifyApiEndpoint {
   }
 
   /// Method: GET
-  /// Path: /v1/audiobooks/{id}
+  /// Endpoint: /v1/audiobooks/{id}
   /// Description: Get an Audiobook
   Future<Success<Audiobook>> getAudiobook({
     required String id,
@@ -64,7 +64,7 @@ class SpotifyApiAudioBooks extends SpotifyApiEndpoint {
   }
 
   /// Method: GET
-  /// Path: /v1/audiobooks
+  /// Endpoint: /v1/audiobooks
   /// Description: Get Several Audiobooks
   Future<Success<List<Audiobook>>> getSeveralAudiobooks({
     required List<String> ids,

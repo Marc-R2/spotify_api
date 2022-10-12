@@ -1,6 +1,5 @@
 import 'package:spotify_api/spotify_api.dart';
 import 'package:spotify_api/src/spotify_api_scopes.dart';
-import 'package:spotify_api/src/spotify_api_server.dart';
 
 part 'endpoint_albums.dart';
 
