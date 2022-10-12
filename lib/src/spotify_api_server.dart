@@ -1,5 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'package:spotify_api/spotify_api.dart';
+import 'package:spotify_api/src/spotify_api_scopes.dart';
 
 class SpotifyApiServer {
   SpotifyApiServer({required SpotifyAuth auth}) : _auth = auth;
@@ -11,6 +12,8 @@ class SpotifyApiServer {
   Future<void> renewAuth() async {
     _auth = await _auth.renew();
   }
+
+  bool hasScopes(SpotifyApiScopes scope) => _auth.scopes.hasScopes(scope);
 
   Future<SpotifyAuth> _getAuth() async {
     if (_auth.isExpired) await renewAuth();

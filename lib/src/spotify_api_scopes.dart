@@ -281,4 +281,28 @@ class SpotifyApiScopes {
 
     return scopes.join(' ');
   }
+
+  /// Checks if all given scopes are included in this scope set.
+  bool hasScopes(SpotifyApiScopes s) {
+    if (s.ugcImageUpload && !ugcImageUpload) return false;
+    if (s.userReadPlaybackState && !userReadPlaybackState) return false;
+    if (s.userModifyPlaybackState && !userModifyPlaybackState) return false;
+    if (s.userReadCurrentlyPlaying && !userReadCurrentlyPlaying) return false;
+    if (s.appRemoteControl && !appRemoteControl) return false;
+    if (s.streaming && !streaming) return false;
+    if (s.playlistModifyPublic && !playlistModifyPublic) return false;
+    if (s.playlistModifyPrivate && !playlistModifyPrivate) return false;
+    if (s.playlistReadCollaborative && !playlistReadCollaborative) return false;
+    if (s.playlistReadPrivate && !playlistReadPrivate) return false;
+    if (s.userFollowModify && !userFollowModify) return false;
+    if (s.userFollowRead && !userFollowRead) return false;
+    if (s.userLibraryModify && !userLibraryModify) return false;
+    if (s.userLibraryRead && !userLibraryRead) return false;
+    if (s.userReadEmail && !userReadEmail) return false;
+    if (s.userReadPrivate && !userReadPrivate) return false;
+    if (s.userTopRead && !userTopRead) return false;
+    if (s.userReadPlaybackPosition && !userReadPlaybackPosition) return false;
+    if (s.userReadRecentlyPlayed && !userReadRecentlyPlayed) return false;
+    return true;
+  }
 }
