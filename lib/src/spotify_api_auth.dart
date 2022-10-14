@@ -12,8 +12,8 @@ class SpotifyApiAuth {
 
   Future<String> get code => _code.future;
 
-  static const clientId = '68b8c92a657b49efaaac573ca629290d';
-  static const clientSecret = '68e5604d7b27402592e07416a885ad72';
+  static const clientId = 'Your Client ID';
+  static const clientSecret = 'Your Client Secret';
 
   static const redirectUri = 'http://localhost:8080/callback';
 
