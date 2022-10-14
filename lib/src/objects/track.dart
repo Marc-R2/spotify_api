@@ -45,7 +45,7 @@ class Track {
         isLocal: json['is_local'] as bool,
         name: json['name'] as String,
         popularity: json['popularity'] as int,
-        previewUrl: json['preview_url'] as String,
+        previewUrl: json['preview_url'] as String?,
         trackNumber: json['track_number'] as int,
         type: json['type'] as String,
         uri: json['uri'] as String,
@@ -64,7 +64,7 @@ class Track {
   final bool isLocal;
   final String name;
   final int popularity;
-  final String previewUrl;
+  final String? previewUrl;
   final int trackNumber;
   final String type;
   final String uri;
