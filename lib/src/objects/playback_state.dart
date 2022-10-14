@@ -12,23 +12,24 @@ class PlaybackState {
     required this.isPlaying,
   });
 
-  factory PlaybackState.fromJson(Map<String, dynamic> json) => PlaybackState(
-        device: Device.fromJson(json['device'] as Map<String, dynamic>),
-        shuffleState: json['shuffle_state'] as bool,
-        repeatState: json['repeat_state'] as String,
-        timestamp: DateTime.fromMillisecondsSinceEpoch(
-          (json['timestamp'] as int) * 1000,
-        ),
-        progressMs: json['progress_ms'] as int,
-        item: Track.fromJson(json['item'] as Map<String, dynamic>),
-        currentlyPlayingType: json['currently_playing_type'] as String,
-        isPlaying: json['is_playing'] as bool,
-      );
+  factory PlaybackState.fromJson(Map<String, dynamic> json) {
+    print(json['timestamp']);
+    return PlaybackState(
+      device: Device.fromJson(json['device'] as Map<String, dynamic>),
+      shuffleState: json['shuffle_state'] as bool,
+      repeatState: json['repeat_state'] as String,
+      timestamp: json['timestamp'] as int,
+      progressMs: json['progress_ms'] as int,
+      item: Track.fromJson(json['item'] as Map<String, dynamic>),
+      currentlyPlayingType: json['currently_playing_type'] as String,
+      isPlaying: json['is_playing'] as bool,
+    );
+  }
 
   final Device device;
   final bool shuffleState;
   final String repeatState;
-  final DateTime timestamp;
+  final int timestamp;
 
   // final Context context;
   final int progressMs;
@@ -42,7 +43,7 @@ class PlaybackState {
         'device': device.toJson(),
         'shuffle_state': shuffleState,
         'repeat_state': repeatState,
-        'timestamp': timestamp.millisecondsSinceEpoch ~/ 1000,
+        'timestamp': timestamp,
         'progress_ms': progressMs,
         'item': item.toJson(),
         'currently_playing_type': currentlyPlayingType,

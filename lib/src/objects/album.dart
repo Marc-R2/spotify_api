@@ -32,9 +32,9 @@ class Album {
         ),
         href: json['href'] as String,
         id: json['id'] as String,
-        images: List<Image>.from(
+        images: List<CoverImage>.from(
           (json['images'] as List).map(
-            (x) => Image.fromJson(x as Map<String, dynamic>),
+            (x) => CoverImage.fromJson(x as Map<String, dynamic>),
           ),
         ),
         name: json['name'] as String,
@@ -51,7 +51,7 @@ class Album {
   final ExternalUrls externalUrls;
   final String href;
   final String id;
-  final List<Image> images;
+  final List<CoverImage> images;
   final String name;
   final String releaseDate;
   final String releaseDatePrecision;
