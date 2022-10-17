@@ -63,10 +63,10 @@ class SpotifyApiPlaylists extends SpotifyApiEndpoint {
   /// Method: GET
   /// Endpoint: /v1/playlists/{playlist_id}/images
   /// Description: Get a Playlist Cover Image
-  Future<Success<List<Image>>> getPlaylistCoverImage({
+  Future<Success<List<CoverImage>>> getPlaylistCoverImage({
     required String playlistId,
   }) async {
-    const fail = Success<List<Image>>(success: false);
+    const fail = Success<List<CoverImage>>(success: false);
     if (_api.hasScopes(const SpotifyApiScopes())) {
       final json = await _api.getRequest(
         endpoint: '/v1/playlists/$playlistId/images',
@@ -74,11 +74,11 @@ class SpotifyApiPlaylists extends SpotifyApiEndpoint {
       if (json == null) return fail;
       try {
         final images = json['images'] != null
-            ? List<Image>.from(
+            ? List<CoverImage>.from(
                 (json['images'] as List)
-                    .map((x) => Image.fromJson(x as Map<String, dynamic>)),
+                    .map((x) => CoverImage.fromJson(x as Map<String, dynamic>)),
               )
-            : <Image>[];
+            : <CoverImage>[];
 
         return Success(data: images);
       } catch (e, trace) {

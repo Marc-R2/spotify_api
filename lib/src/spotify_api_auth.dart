@@ -2,20 +2,31 @@ part of '../../spotify_api.dart';
 
 ///
 class SpotifyApiAuth {
+  /// The initial authentification.
+  SpotifyApiAuth({
+    required this.clientId,
+    required this.clientSecret,
+    required this.redirectUri,
+  });
+
   bool get isAwesome => true;
 
   HttpServer? _server;
 
   Timer? _serverFuture;
 
-  Completer<String> _code = Completer<String>();
+  final Completer<String> _code = Completer<String>();
 
   Future<String> get code => _code.future;
 
-  static const clientId = 'Your Client ID';
-  static const clientSecret = 'Your Client Secret';
+  /// Your Client ID
+  final String clientId;
 
-  static const redirectUri = 'http://localhost:8080/callback';
+  /// Your Client Secret
+  final String clientSecret;
+
+  /// Your Redirect URI
+  final String redirectUri;
 
   Future<void> _startServer() async {
     if (_server != null) return;
@@ -94,6 +105,7 @@ class SpotifyApiAuth {
         refreshToken: json['refresh_token'] as String,
         scopes: SpotifyApiScopes.fromString(json['scope'] as String),
         expire: DateTime.now().add(const Duration(seconds: 3600)),
+        auth: this,
       );
     } catch (e) {
       print(e);
@@ -108,26 +120,33 @@ class SpotifyAuth {
     required this.refreshToken,
     required this.scopes,
     required this.expire,
+    required this.auth,
   });
 
   final String accessToken;
   final String refreshToken;
   final DateTime expire;
+  final SpotifyApiAuth auth;
 
   final SpotifyApiScopes scopes;
 
   bool get isExpired => DateTime.now().isAfter(expire);
 
-  static Future<SpotifyAuth> renew(String refreshToken) async {
+  static Future<SpotifyAuth> renew({
+    required String refreshToken,
+    required SpotifyApiAuth auth,
+  }) async {
     final uri = Uri.https('accounts.spotify.com', '/api/token');
 
-    final response = await http.post(uri, body: {
-      'grant_type': 'refresh_token',
-      'refresh_token': refreshToken,
-      'client_id': SpotifyApiAuth.clientId,
-      'client_secret': SpotifyApiAuth.clientSecret,
-    });
-    print(response.body);
+    final response = await http.post(
+      uri,
+      body: {
+        'grant_type': 'refresh_token',
+        'refresh_token': refreshToken,
+        'client_id': auth.clientId,
+        'client_secret': auth.clientSecret,
+      },
+    );
 
     final json = jsonDecode(response.body) as Map<String, dynamic>;
 
@@ -136,6 +155,7 @@ class SpotifyAuth {
       refreshToken: refreshToken,
       scopes: SpotifyApiScopes.fromString(json['scope'] as String),
       expire: DateTime.now().add(const Duration(seconds: 3600)),
+      auth: auth,
     );
   }
 }

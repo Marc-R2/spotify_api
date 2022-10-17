@@ -4,33 +4,33 @@ import 'package:test/test.dart';
 
 void main() {
   group('A group of tests', () {
-    final awesome = SpotifyApiAuth();
-
-    setUp(() {
-      // Additional setup goes here.
-    });
+    final spotifyAuth = SpotifyApiAuth(
+      clientId: 'Your Client ID',
+      clientSecret: 'Your Client Secret',
+      redirectUri: 'Your Redirect URI',
+    );
 
     test('First Test', () async {
-      print(await awesome.getAuthUri(SpotifyApiScopes.all));
-      expect(awesome.isAwesome, isTrue);
+      print(await spotifyAuth.getAuthUri(SpotifyApiScopes.all));
+      expect(spotifyAuth.isAwesome, isTrue);
     });
 
     test('Second Test', () async {
-      // await awesome.openAuthUri(SpotifyApiScopes.all);
-      await awesome.getAuthUri(SpotifyApiScopes.all);
+      // await spotifyAuth.openAuthUri(SpotifyApiScopes.all);
+      await spotifyAuth.getAuthUri(SpotifyApiScopes.all);
       await Future<void>.delayed(const Duration(seconds: 10));
-      expect(awesome.isAwesome, isTrue);
-      expect(awesome.code, isNotNull);
+      expect(spotifyAuth.isAwesome, isTrue);
+      expect(spotifyAuth.code, isNotNull);
     });
 
     group('Endpoint Test', ()  {
       late SpotifyApi api;
       setUpAll(() async {
-        final auth = await awesome.getAccessToken();
+        final auth = await spotifyAuth.getAccessToken();
         api = SpotifyApi(auth: auth!);
       });
 
-      test('renew', () async {;
+      test('renew', () async {
         await api.renewAuth();
       });
 

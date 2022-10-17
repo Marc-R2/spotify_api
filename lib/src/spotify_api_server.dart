@@ -8,7 +8,10 @@ class SpotifyApiServer {
   SpotifyAuth _auth;
 
   Future<void> renewAuth() async {
-    _auth = await SpotifyAuth.renew(_auth.refreshToken);
+    _auth = await SpotifyAuth.renew(
+      refreshToken: _auth.refreshToken,
+      auth: _auth.auth,
+    );
   }
 
   bool hasScopes(SpotifyApiScopes scope) => _auth.scopes.hasScopes(scope);
