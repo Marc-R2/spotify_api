@@ -5,6 +5,7 @@ class Artist {
     required this.externalUrls,
     required this.href,
     required this.id,
+    required this.name,
     required this.type,
     required this.uri,
   });
@@ -15,6 +16,7 @@ class Artist {
         ),
         href: json['href'] as String,
         id: json['id'] as String,
+        name: json['name'] as String,
         type: json['type'] as String,
         uri: json['uri'] as String,
       );
@@ -22,6 +24,7 @@ class Artist {
   final ExternalUrls externalUrls;
   final String href;
   final String id;
+  final String name;
   final String type;
   final String uri;
 
@@ -29,6 +32,7 @@ class Artist {
         'external_urls': externalUrls.toJson(),
         'href': href,
         'id': id,
+        'name': name,
         'type': type,
         'uri': uri,
       };
