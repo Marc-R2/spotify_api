@@ -107,8 +107,8 @@ class SpotifyApiAuth {
         expire: DateTime.now().add(const Duration(seconds: 3600)),
         auth: this,
       );
-    } catch (e) {
-      print(e);
+    } catch (e, trace) {
+      print('$e => $trace');
     }
     return null;
   }

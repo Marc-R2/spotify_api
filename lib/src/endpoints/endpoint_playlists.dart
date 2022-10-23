@@ -112,7 +112,8 @@ class SpotifyApiPlaylists extends SpotifyApiEndpoint {
         final items = json['items'] != null
             ? List<PlaylistTrack>.from(
                 (json['items'] as List).map(
-                    (x) => PlaylistTrack.fromJson(x as Map<String, dynamic>)),
+                  (x) => PlaylistTrack.fromJson(x as Map<String, dynamic>),
+                ),
               )
             : <PlaylistTrack>[];
 

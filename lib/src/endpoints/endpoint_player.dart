@@ -59,7 +59,8 @@ class SpotifyApiPlayer extends SpotifyApiEndpoint {
         final items = json['items'] != null
             ? List<HistoryTrack>.from(
                 (json['items'] as List).map(
-                    (e) => HistoryTrack.fromJson(e as Map<String, dynamic>)),
+                  (e) => HistoryTrack.fromJson(e as Map<String, dynamic>),
+                ),
               )
             : <HistoryTrack>[];
 

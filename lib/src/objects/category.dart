@@ -12,6 +12,17 @@ class Category {
     required this.previous,
   });
 
+  factory Category.fromJson(Map<String, dynamic> json) => Category(
+        href: json['href'] as String,
+        limit: json['limit'] as int,
+        offset: json['offset'] as int,
+        total: json['total'] as int,
+        next: json['next'] as String?,
+        previous: json['previous'] as String?,
+        id: json['items'][0]['id'] as String,
+        name: json['items'][0]['name'] as String,
+      );
+
   final String href;
 
   final int limit;
@@ -24,17 +35,6 @@ class Category {
   final String name;
 
   final int total;
-
-  factory Category.fromJson(Map<String, dynamic> json) => Category(
-        href: json['href'] as String,
-        limit: json['limit'] as int,
-        offset: json['offset'] as int,
-        total: json['total'] as int,
-        next: json['next'] as String?,
-        previous: json['previous'] as String?,
-        id: json['items'][0]['id'] as String,
-        name: json['items'][0]['name'] as String,
-      );
 
   Map<String, dynamic> toJson() => {
         'href': href,
