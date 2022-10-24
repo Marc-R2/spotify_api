@@ -17,6 +17,15 @@ import 'package:spotify_api/src/spotify_api_scopes.dart';
 export 'package:spotify_api/src/spotify_api_scopes.dart';
 
 part 'src/objects/album.dart';
+part 'src/objects/analysis/meta.dart';
+part 'src/objects/analysis/bars.dart';
+part 'src/objects/analysis/beats.dart';
+part 'src/objects/analysis/sections.dart';
+part 'src/objects/analysis/segments.dart';
+part 'src/objects/analysis/tatums.dart';
+part 'src/objects/analysis/timed.dart';
+part 'src/objects/analysis/timed_list.dart';
+part 'src/objects/analysis/track.dart';
 part 'src/objects/artist.dart';
 part 'src/objects/audio_analysis.dart';
 part 'src/objects/audio_features.dart';
