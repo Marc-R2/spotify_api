@@ -11,15 +11,17 @@ class AnalysisMeta {
     required this.inputProcess,
   });
 
-  static AnalysisMeta fromJson(Map<String, dynamic> json) => AnalysisMeta(
-        analyserVersion: json['analyser_version'] as String,
-        platform: json['platform'] as String,
-        detailedStatus: json['detailed_status'] as String,
-        statusCode: json['status_code'] as int,
-        timestamp: json['timestamp'] as int,
-        analysisTime: json['analysis_time'] as double,
-        inputProcess: json['input_process'] as String,
-      );
+  static AnalysisMeta fromJson(Map<String, dynamic> json) {
+    return AnalysisMeta(
+      analyserVersion: json['analyzer_version'] as String,
+      platform: json['platform'] as String,
+      detailedStatus: json['detailed_status'] as String,
+      statusCode: json['status_code'] as int,
+      timestamp: json['timestamp'] as int,
+      analysisTime: json['analysis_time'] as double,
+      inputProcess: json['input_process'] as String,
+    );
+  }
 
   final String analyserVersion;
 

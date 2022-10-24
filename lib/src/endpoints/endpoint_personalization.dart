@@ -14,7 +14,7 @@ class SpotifyApiPersonalization extends SpotifyApiEndpoint {
     const fail = Success<List<Track>>(success: false);
     if (_api.hasScopes(const SpotifyApiScopes())) {
       final json = await _api.getRequest(
-        endpoint: '/v1/me/top/tracks',
+        endpoint: 'me/top/tracks',
         queryParameters: {
           if (limit != null) 'limit': limit.toString(),
           if (offset != null) 'offset': offset.toString(),
@@ -49,7 +49,7 @@ class SpotifyApiPersonalization extends SpotifyApiEndpoint {
     const fail = Success<List<Artist>>(success: false);
     if (_api.hasScopes(const SpotifyApiScopes())) {
       final json = await _api.getRequest(
-        endpoint: '/v1/me/top/artists',
+        endpoint: 'me/top/artists',
         queryParameters: {
           if (limit != null) 'limit': limit.toString(),
           if (offset != null) 'offset': offset.toString(),

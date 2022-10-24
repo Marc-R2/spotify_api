@@ -32,9 +32,9 @@ class AudioAnalysis {
     );
   }
 
-  static final Map<String, AudioFeatures> _analysisCache = {};
+  static final Map<String, AudioAnalysis> _analysisCache = {};
 
-  static Future<Success<AudioFeatures>> fromTrack({
+  static Future<Success<AudioAnalysis>> fromTrack({
     required Track track,
     required SpotifyApi api,
     bool noCache = false,
@@ -43,7 +43,7 @@ class AudioAnalysis {
     if (_analysisCache.containsKey(id) && !noCache) {
       return Success(data: _analysisCache[id]);
     }
-    final res = await api.tracks.getAudioFeaturesById(id: id);
+    final res = await api.tracks.getAudioAnalysis(id: id);
     if (res.success) _analysisCache[id] = res.data!;
     return res;
   }

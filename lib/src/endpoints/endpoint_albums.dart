@@ -15,7 +15,7 @@ class SpotifyApiAlbums extends SpotifyApiEndpoint {
     const fail = Success<List<Track>>(success: false);
     if (_api.hasScopes(const SpotifyApiScopes())) {
       final json = await _api.getRequest(
-        endpoint: '/v1/albums/$id/tracks',
+        endpoint: 'albums/$id/tracks',
         queryParameters: {
           if (limit != null) 'limit': limit.toString(),
           if (offset != null) 'offset': offset.toString(),
@@ -46,7 +46,7 @@ class SpotifyApiAlbums extends SpotifyApiEndpoint {
     const fail = Success<Album>(success: false);
     if (_api.hasScopes(const SpotifyApiScopes())) {
       final json = await _api.getRequest(
-        endpoint: '/v1/albums/$id',
+        endpoint: 'albums/$id',
         queryParameters: {if (market != null) 'market': market},
       );
       if (json == null) return fail;
@@ -70,7 +70,7 @@ class SpotifyApiAlbums extends SpotifyApiEndpoint {
     const fail = Success<List<Album>>(success: false);
     if (_api.hasScopes(const SpotifyApiScopes())) {
       final json = await _api.getRequest(
-        endpoint: '/v1/albums',
+        endpoint: 'albums',
         queryParameters: {
           'ids': ids.join(','),
           if (market != null) 'market': market,

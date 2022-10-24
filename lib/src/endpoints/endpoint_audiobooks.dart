@@ -15,7 +15,7 @@ class SpotifyApiAudioBooks extends SpotifyApiEndpoint {
     const fail = Success<List<Chapter>>(success: false);
     if (_api.hasScopes(const SpotifyApiScopes())) {
       final json = await _api.getRequest(
-        endpoint: '/v1/audiobooks/$id/chapters',
+        endpoint: 'audiobooks/$id/chapters',
         queryParameters: {
           if (limit != null) 'limit': limit.toString(),
           if (offset != null) 'offset': offset.toString(),
@@ -49,7 +49,7 @@ class SpotifyApiAudioBooks extends SpotifyApiEndpoint {
     const fail = Success<Audiobook>(success: false);
     if (_api.hasScopes(const SpotifyApiScopes())) {
       final json = await _api.getRequest(
-        endpoint: '/v1/audiobooks/$id',
+        endpoint: 'audiobooks/$id',
         queryParameters: {if (market != null) 'market': market},
       );
       if (json == null) return fail;
@@ -73,7 +73,7 @@ class SpotifyApiAudioBooks extends SpotifyApiEndpoint {
     const fail = Success<List<Audiobook>>(success: false);
     if (_api.hasScopes(const SpotifyApiScopes())) {
       final json = await _api.getRequest(
-        endpoint: '/v1/audiobooks',
+        endpoint: 'audiobooks',
         queryParameters: {
           'ids': ids.join(','),
           if (market != null) 'market': market,

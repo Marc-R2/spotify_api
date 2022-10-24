@@ -32,7 +32,7 @@ class AudioFeatures {
         mode: (json['mode'] as int?) ?? -1,
         speechiness: (json['speechiness'] as double?) ?? -1,
         acousticness: (json['acousticness'] as double?) ?? -1,
-        instrumentalness: (json['instrumentalness'] as double?) ?? -1,
+        instrumentalness: (json['instrumentalness'] as num?) ?? -1,
         liveness: (json['liveness'] as double?) ?? -1,
         valence: (json['valence'] as double?) ?? -1,
         tempo: (json['tempo'] as double?) ?? -1,
@@ -93,7 +93,7 @@ class AudioFeatures {
 
   final double acousticness;
 
-  final double instrumentalness;
+  final num instrumentalness;
 
   final double liveness;
 
@@ -124,7 +124,7 @@ class AudioFeatures {
     int? mode,
     double? speechiness,
     double? acousticness,
-    double? instrumentalness,
+    num? instrumentalness,
     double? liveness,
     double? valence,
     double? tempo,

@@ -10,7 +10,7 @@ class SpotifyApiMarkets extends SpotifyApiEndpoint {
     const fail = Success<List<String>>(success: false);
     if (_api.hasScopes(const SpotifyApiScopes())) {
       final json = await _api.getRequest(
-        endpoint: '/v1/markets',
+        endpoint: 'markets',
       );
       if (json == null) return fail;
       try {

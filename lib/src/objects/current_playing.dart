@@ -25,11 +25,18 @@ class CurrentlyPlaying {
 
   // final Context? context;
   final int progressMs;
+
   final Track? item;
+
   final String? currentlyPlayingType;
 
   // final Actions? actions;
   final bool isPlaying;
+
+  int get currentMs {
+    final elaps = DateTime.now().difference(createdAt);
+    return progressMs + (isPlaying ? elaps.inMilliseconds : 0);
+  }
 
   Map<String, dynamic> toJson() => {
         'timestamp': timestamp,

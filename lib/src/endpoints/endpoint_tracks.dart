@@ -12,7 +12,7 @@ class SpotifyApiTracks extends SpotifyApiEndpoint {
     const fail = Success<AudioAnalysis>(success: false);
     if (_api.hasScopes(const SpotifyApiScopes())) {
       final json = await _api.getRequest(
-        endpoint: '/v1/audio-analysis/$id',
+        endpoint: 'audio-analysis/$id',
       );
       if (json == null) return fail;
       try {
@@ -33,18 +33,17 @@ class SpotifyApiTracks extends SpotifyApiEndpoint {
     const fail = Success<List<AudioFeatures>>(success: false);
     if (_api.hasScopes(const SpotifyApiScopes())) {
       final json = await _api.getRequest(
-        endpoint: '/v1/audio-features',
+        endpoint: 'audio-features',
         queryParameters: {'ids': ids.join(',')},
       );
       if (json == null) return fail;
       try {
-        final audioFeatures = json['audio_features'] != null
-            ? List<AudioFeatures>.from(
-                (json['audio_features'] as List).map(
-                  (x) => AudioFeatures.fromJson(x as Map<String, dynamic>),
-                ),
-              )
-            : <AudioFeatures>[];
+        final audioFeatures = <AudioFeatures>[];
+
+        for (final x in json['audio_features'] as List) {
+          if (x is! Map<String, dynamic>) continue;
+          audioFeatures.add(AudioFeatures.fromJson(x));
+        }
 
         return Success(data: audioFeatures);
       } catch (e, trace) {
@@ -63,8 +62,9 @@ class SpotifyApiTracks extends SpotifyApiEndpoint {
     const fail = Success<AudioFeatures>(success: false);
     if (_api.hasScopes(const SpotifyApiScopes())) {
       final json = await _api.getRequest(
-        endpoint: '/v1/audio-features/$id',
+        endpoint: 'audio-features/$id',
       );
+      print(json);
       if (json == null) return fail;
       try {
         return Success(data: AudioFeatures.fromJson(json));
@@ -85,7 +85,7 @@ class SpotifyApiTracks extends SpotifyApiEndpoint {
     const fail = Success<List<Track>>(success: false);
     if (_api.hasScopes(const SpotifyApiScopes())) {
       final json = await _api.getRequest(
-        endpoint: '/v1/tracks',
+        endpoint: 'tracks',
         queryParameters: {
           'ids': ids.join(','),
           if (market != null) 'market': market,
@@ -95,9 +95,9 @@ class SpotifyApiTracks extends SpotifyApiEndpoint {
       try {
         final tracks = json['tracks'] != null
             ? List<Track>.from(
-                (json['tracks'] as List)
-                    .map((x) => Track.fromJson(x as Map<String, dynamic>)),
-              )
+          (json['tracks'] as List)
+              .map((x) => Track.fromJson(x as Map<String, dynamic>)),
+        )
             : <Track>[];
 
         return Success(data: tracks);
@@ -108,7 +108,7 @@ class SpotifyApiTracks extends SpotifyApiEndpoint {
     return fail;
   }
 
-  /// Method: GET
-  /// Endpoint: /v1/tracks/{id}
-  /// Description: Get a Track
+/// Method: GET
+/// Endpoint: /v1/tracks/{id}
+/// Description: Get a Track
 }

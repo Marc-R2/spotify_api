@@ -13,7 +13,7 @@ class SpotifyApiPlaylists extends SpotifyApiEndpoint {
     const fail = Success<bool>(success: false);
     if (_api.hasScopes(const SpotifyApiScopes())) {
       final json = await _api.deleteRequest(
-        endpoint: '/v1/playlists/$playlistId/tracks',
+        endpoint: 'playlists/$playlistId/tracks',
         queryParameters: {'uris': uris.join(',')},
       );
       if (json == null) return fail;
@@ -37,7 +37,7 @@ class SpotifyApiPlaylists extends SpotifyApiEndpoint {
     const fail = Success<List<Playlist>>(success: false);
     if (_api.hasScopes(const SpotifyApiScopes())) {
       final json = await _api.getRequest(
-        endpoint: '/v1/me/playlists',
+        endpoint: 'me/playlists',
         queryParameters: {
           if (limit != null) 'limit': limit.toString(),
           if (offset != null) 'offset': offset.toString(),
@@ -69,7 +69,7 @@ class SpotifyApiPlaylists extends SpotifyApiEndpoint {
     const fail = Success<List<CoverImage>>(success: false);
     if (_api.hasScopes(const SpotifyApiScopes())) {
       final json = await _api.getRequest(
-        endpoint: '/v1/playlists/$playlistId/images',
+        endpoint: 'playlists/$playlistId/images',
       );
       if (json == null) return fail;
       try {
@@ -100,7 +100,7 @@ class SpotifyApiPlaylists extends SpotifyApiEndpoint {
     const fail = Success<List<PlaylistTrack>>(success: false);
     if (_api.hasScopes(const SpotifyApiScopes())) {
       final json = await _api.getRequest(
-        endpoint: '/v1/playlists/$playlistId/tracks',
+        endpoint: 'playlists/$playlistId/tracks',
         queryParameters: {
           if (limit != null) 'limit': limit.toString(),
           if (offset != null) 'offset': offset.toString(),
@@ -136,7 +136,7 @@ class SpotifyApiPlaylists extends SpotifyApiEndpoint {
     const fail = Success<List<Playlist>>(success: false);
     if (_api.hasScopes(const SpotifyApiScopes())) {
       final json = await _api.getRequest(
-        endpoint: '/v1/users/$userId/playlists',
+        endpoint: 'users/$userId/playlists',
         queryParameters: {
           if (limit != null) 'limit': limit.toString(),
           if (offset != null) 'offset': offset.toString(),
@@ -169,7 +169,7 @@ class SpotifyApiPlaylists extends SpotifyApiEndpoint {
     const fail = Success<Playlist>(success: false);
     if (_api.hasScopes(const SpotifyApiScopes())) {
       final json = await _api.getRequest(
-        endpoint: '/v1/playlists/$playlistId',
+        endpoint: 'playlists/$playlistId',
         queryParameters: {
           if (market != null) 'market': market,
         },
@@ -196,7 +196,7 @@ class SpotifyApiPlaylists extends SpotifyApiEndpoint {
     const fail = Success<bool>(success: false);
     if (_api.hasScopes(const SpotifyApiScopes())) {
       final json = await _api.postRequest(
-        endpoint: '/v1/playlists/$playlistId/tracks',
+        endpoint: 'playlists/$playlistId/tracks',
         queryParameters: {
           'uris': uris.join(','),
           if (position != null) 'position': position.toString(),
@@ -226,7 +226,7 @@ class SpotifyApiPlaylists extends SpotifyApiEndpoint {
     const fail = Success<Playlist>(success: false);
     if (_api.hasScopes(const SpotifyApiScopes())) {
       final json = await _api.postRequest(
-        endpoint: '/v1/$userId/playlists',
+        endpoint: '$userId/playlists',
         data: {
           'name': name,
           if (isPublic != null) 'public': isPublic.toString(),
@@ -256,7 +256,7 @@ class SpotifyApiPlaylists extends SpotifyApiEndpoint {
     const fail = Success<bool>(success: false);
     if (_api.hasScopes(const SpotifyApiScopes())) {
       final json = await _api.putRequest(
-        endpoint: '/v1/playlists/$playlistId/images',
+        endpoint: 'playlists/$playlistId/images',
         data: base64Image,
       );
       if (json == null) return fail;
@@ -292,7 +292,7 @@ class SpotifyApiPlaylists extends SpotifyApiEndpoint {
     const fail = Success<bool>(success: false);
     if (_api.hasScopes(const SpotifyApiScopes())) {
       final json = await _api.putRequest(
-        endpoint: '/v1/playlists/$playlistId',
+        endpoint: 'playlists/$playlistId',
         data: {
           'name': name,
           if (isPublic != null) 'public': isPublic.toString(),

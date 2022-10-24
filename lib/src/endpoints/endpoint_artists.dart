@@ -16,7 +16,7 @@ class SpotifyApiArtists extends SpotifyApiEndpoint {
     const fail = Success<List<Album>>(success: false);
     if (_api.hasScopes(const SpotifyApiScopes())) {
       final json = await _api.getRequest(
-        endpoint: '/v1/artists/$id/albums',
+        endpoint: 'artists/$id/albums',
         queryParameters: {
           if (includeGroups != null) 'include_groups': includeGroups.join(','),
           if (limit != null) 'limit': limit.toString(),
@@ -50,7 +50,7 @@ class SpotifyApiArtists extends SpotifyApiEndpoint {
     const fail = Success<List<Artist>>(success: false);
     if (_api.hasScopes(const SpotifyApiScopes())) {
       final json = await _api.getRequest(
-        endpoint: '/v1/artists/$id/related-artists',
+        endpoint: 'artists/$id/related-artists',
       );
       if (json == null) return fail;
       try {
@@ -79,7 +79,7 @@ class SpotifyApiArtists extends SpotifyApiEndpoint {
     const fail = Success<List<Track>>(success: false);
     if (_api.hasScopes(const SpotifyApiScopes())) {
       final json = await _api.getRequest(
-        endpoint: '/v1/artists/$id/top-tracks',
+        endpoint: 'artists/$id/top-tracks',
         queryParameters: {if (market != null) 'market': market},
       );
       if (json == null) return fail;
@@ -107,7 +107,7 @@ class SpotifyApiArtists extends SpotifyApiEndpoint {
   }) async {
     const fail = Success<Artist>(success: false);
     if (_api.hasScopes(const SpotifyApiScopes())) {
-      final json = await _api.getRequest(endpoint: '/v1/artists/$id');
+      final json = await _api.getRequest(endpoint: 'artists/$id');
       if (json == null) return fail;
       try {
         final artist = Artist.fromJson(json);
@@ -129,7 +129,7 @@ class SpotifyApiArtists extends SpotifyApiEndpoint {
     const fail = Success<List<Artist>>(success: false);
     if (_api.hasScopes(const SpotifyApiScopes())) {
       final json = await _api.getRequest(
-        endpoint: '/v1/artists',
+        endpoint: 'artists',
         queryParameters: {'ids': ids.join(',')},
       );
       if (json == null) return fail;

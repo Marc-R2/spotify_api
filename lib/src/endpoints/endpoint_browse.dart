@@ -10,7 +10,7 @@ class SpotifyApiBrowse extends SpotifyApiEndpoint {
     const fail = Success<List<String>>(success: false);
     if (_api.hasScopes(const SpotifyApiScopes())) {
       final json = await _api.getRequest(
-        endpoint: '/v1/recommendations/available-genre-seeds',
+        endpoint: 'recommendations/available-genre-seeds',
       );
       if (json == null) return fail;
       try {
@@ -35,7 +35,7 @@ class SpotifyApiBrowse extends SpotifyApiEndpoint {
     const fail = Success<List<Category>>(success: false);
     if (_api.hasScopes(const SpotifyApiScopes())) {
       final json = await _api.getRequest(
-        endpoint: '/v1/browse/categories',
+        endpoint: 'browse/categories',
         queryParameters: {
           if (country != null) 'country': country,
           if (locale != null) 'locale': locale,
@@ -70,7 +70,7 @@ class SpotifyApiBrowse extends SpotifyApiEndpoint {
     const fail = Success<Category>(success: false);
     if (_api.hasScopes(const SpotifyApiScopes())) {
       final json = await _api.getRequest(
-        endpoint: '/v1/browse/categories/$categoryId',
+        endpoint: 'browse/categories/$categoryId',
         queryParameters: {
           if (country != null) 'country': country,
           if (locale != null) 'locale': locale,
@@ -99,7 +99,7 @@ class SpotifyApiBrowse extends SpotifyApiEndpoint {
     const fail = Success<List<Playlist>>(success: false);
     if (_api.hasScopes(const SpotifyApiScopes())) {
       final json = await _api.getRequest(
-        endpoint: '/v1/browse/categories/$categoryId/playlists',
+        endpoint: 'browse/categories/$categoryId/playlists',
         queryParameters: {
           if (country != null) 'country': country,
           if (limit != null) 'limit': limit.toString(),
@@ -135,7 +135,7 @@ class SpotifyApiBrowse extends SpotifyApiEndpoint {
     const fail = Success<List<Playlist>>(success: false);
     if (_api.hasScopes(const SpotifyApiScopes())) {
       final json = await _api.getRequest(
-        endpoint: '/v1/browse/featured-playlists',
+        endpoint: 'browse/featured-playlists',
         queryParameters: {
           if (country != null) 'country': country,
           if (locale != null) 'locale': locale,
@@ -171,7 +171,7 @@ class SpotifyApiBrowse extends SpotifyApiEndpoint {
     const fail = Success<List<Album>>(success: false);
     if (_api.hasScopes(const SpotifyApiScopes())) {
       final json = await _api.getRequest(
-        endpoint: '/v1/browse/new-releases',
+        endpoint: 'browse/new-releases',
         queryParameters: {
           if (country != null) 'country': country,
           if (limit != null) 'limit': limit.toString(),
@@ -248,7 +248,7 @@ class SpotifyApiBrowse extends SpotifyApiEndpoint {
     const fail = Success<List<Track>>(success: false);
     if (_api.hasScopes(const SpotifyApiScopes())) {
       final json = await _api.getRequest(
-        endpoint: '/v1/recommendations',
+        endpoint: 'recommendations',
         queryParameters: {
           if (seedArtists != null) 'seed_artists': seedArtists.join(','),
           if (seedGenres != null) 'seed_genres': seedGenres.join(','),

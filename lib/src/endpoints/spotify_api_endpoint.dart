@@ -42,11 +42,14 @@ class Success<T> {
   const Success({
     this.success = true,
     this.data,
+    // required this.responseCode,
   });
 
   final bool success;
 
   final T? data;
+
+  // TODO(Marc-R2): final int responseCode;
 
   @override
   String toString() {
