@@ -36,6 +36,32 @@ class SpotifyApiPlayer extends SpotifyApiEndpoint {
     return fail;
   }
 
+  /// Method: POST
+  /// Endpoint: /v1/me/player/queue
+  /// Usage: Add an Item to the User's Queue
+  Future<Success<bool>> addToUsersQueue({
+    required String uri,
+    String? deviceId,
+  }) async {
+    const fail = Success<bool>(success: false);
+    if (_api.hasScopes(const SpotifyApiScopes(userModifyPlaybackState: true))) {
+      final json = await _api.postRequest(
+        endpoint: 'me/player/queue',
+        queryParameters: {
+          'uri': uri,
+          if (deviceId != null) 'device_id': deviceId,
+        },
+      );
+      if (json == null) return fail;
+      try {
+        return Success(data: json['snapshot_id'] != null);
+      } catch (e, trace) {
+        print('$e => $trace');
+      }
+    }
+    return fail;
+  }
+
   /// Method: GET
   /// Endpoint: /v1/me/player/recently-played
   /// Usage: Get Recently Played Tracks
