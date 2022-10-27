@@ -15,9 +15,9 @@ class SpotifyApiAuth {
 
   Timer? _serverFuture;
 
-  final Completer<String> _code = Completer<String>();
+  final Completer<String> codeCompleter = Completer<String>();
 
-  Future<String> get code => _code.future;
+  Future<String> get code => codeCompleter.future;
 
   /// Your Client ID
   final String clientId;
@@ -33,7 +33,7 @@ class SpotifyApiAuth {
     final handler =
         const Pipeline().addMiddleware(logRequests()).addHandler((request) {
       if (request.requestedUri.path == '/callback') {
-        _code.complete(request.url.queryParameters['code']);
+        codeCompleter.complete(request.url.queryParameters['code']);
 
         Timer(const Duration(milliseconds: 128), () {
           _server?.close();
@@ -55,8 +55,11 @@ class SpotifyApiAuth {
   }
 
   /// Prompt the user to authorize this application.
-  Future<Uri> getAuthUri(SpotifyApiScopes scopes) async {
-    await _startServer();
+  Future<Uri> getAuthUri(
+    SpotifyApiScopes scopes, {
+    bool startServer = true,
+  }) async {
+    if (startServer) await _startServer();
     // Link to the authorization page.
     // https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorization-code-flow
     // https://developer.spotify.com/documentation/general/guides/scopes/
@@ -67,8 +70,10 @@ class SpotifyApiAuth {
       'scope': scopes.toString(),
     });
 
-    if (_serverFuture != null) _serverFuture!.cancel();
-    _serverFuture = Timer(const Duration(seconds: 60), _stopServer);
+    if (startServer) {
+      if (_serverFuture != null) _serverFuture!.cancel();
+      _serverFuture = Timer(const Duration(seconds: 60), _stopServer);
+    }
 
     return uri;
   }
